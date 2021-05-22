@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,10 @@ import cl.maleb.todolist.R
 import cl.maleb.todolist.data.SortOrder
 import cl.maleb.todolist.data.Task
 import cl.maleb.todolist.databinding.FragmentTasksBinding
+import cl.maleb.todolist.ui.addedittask.AddEditTaskEvent
+import cl.maleb.todolist.ui.addedittask.AddEditTaskFragment
+import cl.maleb.todolist.ui.addedittask.AddEditTaskFragment.Companion.ADD_EDIT_REQUEST
+import cl.maleb.todolist.ui.addedittask.AddEditTaskFragment.Companion.ADD_EDIT_RESULT
 import cl.maleb.todolist.util.exhaustive
 import cl.maleb.todolist.util.onQueryTextChanged
 import com.google.android.material.snackbar.Snackbar
@@ -61,6 +66,11 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
                 }
 
             }).attachToRecyclerView(recyclerViewTasks)
+
+            setFragmentResultListener(ADD_EDIT_REQUEST) { _, bundle ->
+                val result = bundle.getInt(ADD_EDIT_RESULT)
+                viewModel.onAddEditResult(result)
+            }
         }
 
         viewModel.tasks.observe(viewLifecycleOwner) {
@@ -95,6 +105,13 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
                                 title = getString(R.string.edit_task_title)
                             )
                         findNavController().navigate(action)
+                    }
+                    is TasksEvent.ShowTaskSavedConfirmationMessage -> {
+                        Snackbar.make(
+                            requireView(),
+                            event.message,
+                            Snackbar.LENGTH_LONG
+                        ).show()
                     }
                 }.exhaustive
             }

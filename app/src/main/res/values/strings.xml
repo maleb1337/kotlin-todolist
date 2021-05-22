@@ -8,4 +8,7 @@
     <string name="task_title">Tasks</string>
     <string name="add_task_title">New Task</string>
     <string name="edit_task_title">Edit Task</string>
+    <string name="empty_name">Name cannot be empty</string>
+    <string name="task_added">Task Added</string>
+    <string name="task_updated">Task Updated</string>
 </resources>

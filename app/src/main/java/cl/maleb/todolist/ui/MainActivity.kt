@@ -1,5 +1,6 @@
 package cl.maleb.todolist.ui
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
@@ -13,6 +14,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
+
+    companion object {
+        const val ADD_TASK_RESULT_OK = Activity.RESULT_FIRST_USER
+        const val EDIT_TASK_RESULT_OK = Activity.RESULT_FIRST_USER + 1
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
