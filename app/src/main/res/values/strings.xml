@@ -2,4 +2,6 @@
     <string name="app_name">todolist</string>
     <string name="hint_task_name">Task name</string>
     <string name="important_task">Important task</string>
+    <string name="task_deleted">Task deleted</string>
+    <string name="undo_action">Undo</string>
 </resources>

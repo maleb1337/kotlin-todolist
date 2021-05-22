@@ -68,8 +68,12 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
             viewModel.tasksEvent.collect { event ->
                 when (event) {
                     is TasksEvent.ShowUndoDeleteTaskMessage -> {
-                        Snackbar.make(requireView(), "Task deleted", Snackbar.LENGTH_LONG)
-                            .setAction("Undo") {
+                        Snackbar.make(
+                            requireView(),
+                            resources.getString(R.string.task_deleted),
+                            Snackbar.LENGTH_LONG
+                        )
+                            .setAction(resources.getString(R.string.undo_action)) {
                                 viewModel.onUndoDeleteClick(event.task)
                             }.show()
                     }
