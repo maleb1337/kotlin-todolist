@@ -1,7 +1,6 @@
 package cl.maleb.todolist.data
 
 import androidx.room.*
-import cl.maleb.todolist.ui.tasks.SortOrder
 import kotlinx.coroutines.flow.Flow
 
 @Dao
