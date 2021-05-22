@@ -4,4 +4,8 @@
     <string name="important_task">Important task</string>
     <string name="task_deleted">Task deleted</string>
     <string name="undo_action">Undo</string>
+    <string name="date_created">Created: %s</string>
+    <string name="task_title">Tasks</string>
+    <string name="add_task_title">New Task</string>
+    <string name="edit_task_title">Edit Task</string>
 </resources>
