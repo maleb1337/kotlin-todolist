@@ -8,9 +8,11 @@ import cl.maleb.todolist.data.PreferencesManager
 import cl.maleb.todolist.data.SortOrder
 import cl.maleb.todolist.data.Task
 import cl.maleb.todolist.data.TaskDao
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class TasksViewModel @ViewModelInject constructor(
@@ -21,6 +23,9 @@ class TasksViewModel @ViewModelInject constructor(
     val searchQuery = MutableStateFlow("")
 
     val preferencesFlow = preferencesManager.preferencesFlow
+
+    private val tasksEventChannel = Channel<TasksEvent>()
+    val tasksEvent = tasksEventChannel.receiveAsFlow()
 
     private val tasksFlow = combine(
         searchQuery,
@@ -47,5 +52,13 @@ class TasksViewModel @ViewModelInject constructor(
         taskDao.update(task.copy(completed = isChecked))
     }
 
+    fun onTaskSwiped(task: Task) = viewModelScope.launch {
+        taskDao.delete(task)
+        tasksEventChannel.send(TasksEvent.ShowUndoDeleteTaskMessage(task))
+    }
+
+    fun onUndoDeleteClick(task: Task) = viewModelScope.launch {
+        taskDao.insert(task)
+    }
 
 }
