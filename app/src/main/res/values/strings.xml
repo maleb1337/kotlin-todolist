@@ -11,4 +11,8 @@
     <string name="empty_name">Name cannot be empty</string>
     <string name="task_added">Task Added</string>
     <string name="task_updated">Task Updated</string>
+    <string name="delete_dialog_title">Confirm deletion</string>
+    <string name="delete_dialog_message">Do you really want to delete all completed tasks ?</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
 </resources>

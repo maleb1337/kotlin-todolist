@@ -7,5 +7,6 @@ sealed class TasksEvent {
     object NavigateToAddTaskScreen : TasksEvent()
     data class NavigateToEditTaskScreen(val task: Task) : TasksEvent()
     data class ShowTaskSavedConfirmationMessage(val message: String) : TasksEvent()
+    object NavigateToDeleteAllCompletedScreen : TasksEvent()
 
 }
